@@ -1,5 +1,5 @@
-const Total = ({parts}) => {
-	const total = parts.reduce((sum, part) => {
+const Total = ({course}) => {
+	const total = course.parts.reduce((sum, part) => {
 		return sum + part.exercises
 	}, 0)
 
