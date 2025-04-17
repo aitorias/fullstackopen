@@ -1,4 +1,4 @@
-# Full Stack Open 2025
+# Full Stack open
 
 ## Exercises done by: [Aitorias](https://github.com/aitorias)
 
