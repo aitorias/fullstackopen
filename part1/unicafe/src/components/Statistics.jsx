@@ -12,17 +12,16 @@ const Statistics = (props) => {
   return (
     <div className="statistics-container">
       <h2>statistics</h2>
-      <StatisticLine text="good" value={props.good} />
-      <br />
-      <StatisticLine text="neutral" value={props.neutral} />
-      <br />
-      <StatisticLine text="bad" value={props.bad} />
-      <br />
-      <StatisticLine text="all" value={props.all} />
-      <br />
-      <StatisticLine text="average" value={props.average} />
-      <br />
-      <StatisticLine text="positive" value={props.positive + ' %'} />
+      <table>
+        <tbody>
+          <StatisticLine text="good" value={props.good} />
+          <StatisticLine text="neutral" value={props.neutral} />
+          <StatisticLine text="bad" value={props.bad} />
+          <StatisticLine text="all" value={props.all} />
+          <StatisticLine text="average" value={props.average} />
+          <StatisticLine text="positive" value={props.positive + ' %'} />
+        </tbody>
+      </table>
     </div>
   )
 }
