@@ -15,10 +15,10 @@ const App = () => {
 
   const [selected, setSelected] = useState(0)
 
-  const randomNumber = Math.floor(Math.random() * anecdotes.length)
+  const getRandomNumber = () => Math.floor(Math.random() * anecdotes.length)
 
   const handleClick = () => {
-    setSelected(randomNumber)
+    setSelected(getRandomNumber())
   }
 
   return (
