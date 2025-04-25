@@ -2,12 +2,12 @@ const MostVotedAnecdote = ({ anecdotes, votes }) => {
   let mostVotedAnecdote = ''
   let biggestVote = 0
 
-  for (let i = 0; i < votes.length; i++) {
-    if (votes[i] > biggestVote) {
-      biggestVote = votes[i]
-      mostVotedAnecdote = anecdotes[i]
+  votes.forEach((vote) => {
+    if (vote > biggestVote) {
+      biggestVote = vote
+      mostVotedAnecdote = anecdotes[votes.indexOf(vote)]
     }
-  }
+  })
 
   if (biggestVote > 0) {
     return (
