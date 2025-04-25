@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Button from './components/Button'
 import Votes from './components/Votes'
+import MostVotedAnecdote from './components/MostVotedAnecdote'
 
 const App = () => {
   const anecdotes = [
@@ -25,17 +26,22 @@ const App = () => {
   }
 
   const handleVote = () => {
-    const addedVotes = [...votesState]
-    addedVotes[selected] += 1
-    setVotesState(addedVotes)
+    setVotesState((prevVotes) => {
+      const newVotes = [...prevVotes]
+      newVotes[selected] += 1
+      return newVotes
+    })
   }
 
   return (
     <>
-      <div>{anecdotes[selected]}</div>
-      <Votes votes={votesState[selected]} />
-      <Button onClick={handleVote} text="vote" />
-      <Button onClick={handleNextAnecdote} text="next anecdote" />
+      <div>
+        <div>{anecdotes[selected]}</div>
+        <Votes votes={votesState[selected]} />
+        <Button onClick={handleVote} text="vote" />
+        <Button onClick={handleNextAnecdote} text="next anecdote" />
+      </div>
+      <MostVotedAnecdote anecdotes={anecdotes} votes={votesState} />
     </>
   )
 }
