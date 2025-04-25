@@ -9,7 +9,7 @@ const MostVotedAnecdote = ({ anecdotes, votes }) => {
     }
   }
 
-  if (biggestVote >= 1) {
+  if (biggestVote > 0) {
     return (
       <div className="most-voted-anecdote">
         <h2>Anecdote with most votes</h2>
