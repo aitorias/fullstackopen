@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
+import Persons from './components/persons/Persons'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -15,7 +18,7 @@ const App = () => {
     setNewName(event.target.value)
   }
 
-  const handlePhoneChange = (event) => {
+  const handleNumberChange = (event) => {
     setNewNumber(event.target.value)
   }
 
@@ -54,52 +57,19 @@ const App = () => {
 
   return (
     <div>
-      <h1>Phonebook</h1>
+      <h2>Phonebook</h2>
+      <Filter filter={filter} handleFilterChange={handleFilterChange} />
+      <h3>add a new</h3>
+      <PersonForm
+        onSubmit={addNewPerson}
+        newName={newName}
+        handleNameChange={handleNameChange}
+        newNumber={newNumber}
+        handleNumberChange={handleNumberChange}
+      />
+      <h3>Numbers</h3>
       <div>
-        filter shown with{' '}
-        <input
-          type="search"
-          name="search"
-          value={filter}
-          onChange={handleFilterChange}
-        />
-      </div>
-      <h2>add a new</h2>
-      <form onSubmit={addNewPerson}>
-        <div>
-          name:{' '}
-          <input
-            type="text"
-            name="name"
-            value={newName}
-            onChange={handleNameChange}
-            required
-          />
-        </div>
-        <div>
-          number:{' '}
-          <input
-            type="string"
-            name="number"
-            pattern="^\d+(-\d+)*$"
-            value={newNumber}
-            onChange={handlePhoneChange}
-            required
-          />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      <div>
-        {personsToShow.map((person) => {
-          return (
-            <p key={person.id}>
-              {person.name} {person.number}
-            </p>
-          )
-        })}
+        <Persons arrayOfPersons={personsToShow} />
       </div>
     </div>
   )
