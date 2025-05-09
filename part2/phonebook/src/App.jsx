@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
+import personService from './services/persons'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/persons/Persons'
@@ -11,10 +11,38 @@ const App = () => {
   const [filter, setFilter] = useState('')
 
   useEffect(() => {
-    axios.get('http://localhost:3001/persons').then((response) => {
-      setPersons(response.data)
-    })
+    personService.getAll().then((personsData) => setPersons(personsData))
   }, [])
+
+  const addNewPerson = (event) => {
+    event.preventDefault()
+
+    const newPerson = {
+      name: newName,
+      number: newNumber, 
+    }
+
+    const nameExists = persons.some(
+      (person) =>
+        person.name.trim().toLowerCase() === newName.trim().toLowerCase()
+    )
+
+    if (nameExists) {
+      alert(`${newName} is already added to phonebook`)
+    } else {
+      personService.createPerson(newPerson).then((addedPerson) => {
+        setPersons(persons.concat(addedPerson))
+        setNewName('')
+        setNewNumber('')
+      })
+    }
+  }
+
+  const personsToShow = filter
+    ? persons.filter((person) =>
+        person.name.toLowerCase().includes(filter.toLowerCase())
+      )
+    : persons
 
   const handleNameChange = (event) => {
     setNewName(event.target.value)
@@ -27,35 +55,6 @@ const App = () => {
   const handleFilterChange = (event) => {
     setFilter(event.target.value)
   }
-
-  const addNewPerson = (event) => {
-    event.preventDefault()
-
-    const newPerson = {
-      name: newName,
-      number: newNumber,
-      id: persons.length + 1,
-    }
-
-    const nameExists = persons.some(
-      (person) =>
-        person.name.trim().toLowerCase() === newName.trim().toLowerCase()
-    )
-
-    if (nameExists) {
-      alert(`${newName} is already added to phonebook`)
-    } else {
-      setPersons(persons.concat(newPerson))
-      setNewName('')
-      setNewNumber('')
-    }
-  }
-
-  const personsToShow = filter
-    ? persons.filter((person) =>
-        person.name.toLowerCase().includes(filter.toLowerCase())
-      )
-    : persons
 
   return (
     <div>
